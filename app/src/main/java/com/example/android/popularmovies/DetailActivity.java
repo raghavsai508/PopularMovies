@@ -40,7 +40,7 @@ public class DetailActivity extends AppCompatActivity {
 
                 mTextViewTitle.setText(movie.getTitle());
                 mTextViewReleaseDate.setText(movie.getReleaseDate());
-                mTextViewRating.setText(movie.getVoteCount().toString());
+                mTextViewRating.setText(movie.getVoteAverage().toString()+"/10");
                 mTextViewOverview.setText(movie.getOverview());
 
             }

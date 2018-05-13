@@ -18,6 +18,8 @@ public class MovieAdapter extends ArrayAdapter<Movie> {
     private Context mContext;
     private Movie[] movies;
 
+    private static final String IMAGE_BASE_URL = "http://image.tmdb.org/t/p/w185";
+
     public MovieAdapter(Context context, Movie[] moviesList) {
         super(context,0,moviesList);
         mContext = context;
@@ -40,9 +42,7 @@ public class MovieAdapter extends ArrayAdapter<Movie> {
 
         Movie movie = movies[position];
         ImageView movieImage = movieView.findViewById(R.id.imageView);
-
-        String imageURL = "http://image.tmdb.org/t/p/w185"+movie.getPosterPath();
-
+        String imageURL = IMAGE_BASE_URL+movie.getPosterPath();
         Picasso.with(mContext).load(imageURL).into(movieImage);
 
         return movieView;

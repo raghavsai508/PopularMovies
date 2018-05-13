@@ -13,26 +13,21 @@ public class NetworkUtility {
 
     private static final String TAG = NetworkUtility.class.getSimpleName();
 
+    private static final String MOVIE_SCHEME = "https";
     private static final String MOVIE_BASE_URL = "api.themoviedb.org";
-    private static final String MOVIE_POPULAR_PATH = "3/movie/popular";
-    private static final String MOVIE_TOP_RATED_PATH = "3/movie/top_rated";
+    private static final String MOVIE_APPENDED_PATH = "3/movie";
 
     private static final String MOVIE_API_KEY = "";
     private static final String MOVIE_QUERY_API_PARAM = "api_key";
 
 
-    public static URL buildUrl() {
-//        Uri uri = Uri.parse(MOVIE_BASE_URL).buildUpon()
-//                .appendPath(MOVIE_POPULAR_PATH)
-//                .appendQueryParameter(MOVIE_QUERY_API_PARAM,MOVIE_API_KEY)
-//                .build();
+    public static URL buildUrl(String sortType) {
 
         Uri.Builder builder = new Uri.Builder();
-        Uri uri =  builder.scheme("https")
+        Uri uri =  builder.scheme(MOVIE_SCHEME)
                 .authority(MOVIE_BASE_URL)
-                .appendPath("3")
-                .appendPath("movie")
-                .appendPath("popular")
+                .appendEncodedPath(MOVIE_APPENDED_PATH)
+                .appendPath(sortType)
                 .appendQueryParameter(MOVIE_QUERY_API_PARAM,MOVIE_API_KEY)
                 .build();
 
@@ -44,7 +39,7 @@ public class NetworkUtility {
             e.printStackTrace();
         }
 
-//        Log.d(TAG, "Built URI " + url);
+        Log.v(TAG, "Built URI " + url);
 
         return url;
 
@@ -57,6 +52,7 @@ public class NetworkUtility {
         HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
         try {
             InputStream in = urlConnection.getInputStream();
+            Log.v("input stream", in.toString());
 
             Scanner scanner = new Scanner(in);
             scanner.useDelimiter("\\A");
